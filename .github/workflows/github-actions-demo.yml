@@ -69,7 +69,7 @@ jobs:
     needs: shared-variables
     steps:
       - name: Create Production Release
-        if: inputs.environment == 'prod'
+        if: inputs.environment == 'prod' && success()
         uses: tubone24/update_release@v1.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
