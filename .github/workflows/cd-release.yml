@@ -6,7 +6,7 @@ jobs:
   deploy-stage:
     uses: ./.github/workflows/github-actions-demo.yml
     with:
-      environment: stg
+      environment: staging
       git_ref: '${{ github.ref }}'
       AWS_REGION: use-east-1
   deploy-prod:
