@@ -1,21 +1,19 @@
-neme: Initiate release Approval Process
-
+name: Initiate release Approval Process
 on:
   release:
-    types: [prereleased]
-    
+    types:
+      - prereleased
 jobs:
   deploy-stage:
     uses: ./.github/workflows/github-actions-demo.yml
     with:
       environment: stg
-      git_ref: ${{.github.ref }}
+      git_ref: '${{.github.ref }}'
       AWS_REGION: use-east-1
-      
-   deploy-prod:
+  deploy-prod:
     needs: deploy-stage
     uses: ./.github/workflows/github-actions-demo.yml
     with:
       environment: prod
-      git_ref: ${{.github.ref }}
+      git_ref: '${{.github.ref }}'
       AWS_REGION: use-east-1
