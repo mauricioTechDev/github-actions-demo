@@ -43,14 +43,12 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.5
         
   start-deployment:
-    needs: [shared-variables, Explore-GitHub-Actions]
+    needs: shared-variables
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-      - name: "We are running this in the ${{ inputs.environment }} environment on the branch named ${{ inputs.git_ref }}"
-        with:
-          ref: ${{ inputs.git_ref }}
-        run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "We are running this in the ${{ inputs.environment }} environment witht the branch ${{ github.ref }}"
+        
   
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
