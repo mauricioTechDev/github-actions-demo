@@ -1,7 +1,47 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      git_ref:
+        required: true
+        type: string
+      AWS_REGION:
+        required: true
+        type: string
+        
 jobs:
+  cancel-previous-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ github.token }}
+          
+  shared-variables:
+    needs: cancel-previous-runs
+    runs-on: ubuntu-latest
+    outputs:
+      VERSION: ${{ steps.gitversion.outputs.SemVer }}
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.git_ref }}
+      - name: Fetch git history
+        run: git fetch --prune --unshallow --tags
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.5
+        with:
+          versionSpec: '5.11.x'
+      - name: Use GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.5
+  
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
@@ -16,3 +56,22 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      
+  Resolve-deploy:
+    runs-on: ununtu-latest
+    needs: shared-variables
+    steps:
+      - name: Create Production Release
+        if: inputs.environment == 'prod'
+        uses: tubone24/update_release@v1.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ inputs.git_ref }}
+        with:
+          prerelease: false
+      - run: echo "🔎 This is teh ${{ inputs.environment }} env using the ${{ github.token }} gh token and the tage name ${{ inputs.git_ref }}."
+          
+          
+          
+          
+    
