@@ -47,7 +47,7 @@ jobs:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "We are running this in the ${{ inputs.environment }} environment witht the branch ${{ github.ref }}"
+      - run: echo "We are running this in the ${{ inputs.environment }} environment witht the branch ${{ inputs.git_ref }}"
         
   
   Explore-GitHub-Actions:
