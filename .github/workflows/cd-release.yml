@@ -14,5 +14,5 @@ jobs:
     uses: ./.github/workflows/github-actions-demo.yml
     with:
       environment: prod
-      git_ref: '${{ github.ref }}'
+      git_ref: '${{ github.ref_name }}'
       AWS_REGION: use-east-1
