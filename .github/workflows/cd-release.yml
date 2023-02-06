@@ -1,8 +1,7 @@
 name: Initiate release Approval Process
 on:
   release:
-    types:
-      - prereleased
+    types: [prereleased]
 jobs:
   deploy-stage:
     uses: ./.github/workflows/github-actions-demo.yml
