@@ -59,6 +59,7 @@ jobs:
       
   Resolve-deploy:
     runs-on: ubuntu-latest
+    environment: prod
     needs: shared-variables
     steps:
       - name: Create Production Release
