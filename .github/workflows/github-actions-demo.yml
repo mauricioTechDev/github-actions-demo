@@ -41,6 +41,15 @@ jobs:
       - name: Use GitVersion
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.5
+        
+  start-deployment:
+    needs: [shared-variables, Explore-GitHub-Actions]
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "We are running this in the ${{ inputs.environment }} environment on the branch named ${{ inputs.git_ref }}"
+        with:
+          ref: ${{ inputs.git_ref }}
   
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -56,16 +65,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      
-  start-deployment:
-    needs: [shared-variables, Explore-GitHub-Actions]
-    environment: ${{ inputs.environment }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: "We are running this in the ${{ inputs.environment }} environment on the branch named ${{ inputs.git_ref }}"
-        with:
-          ref: ${{ inputs.git_ref }}
-      
       
   Resolve-deploy:
     runs-on: ubuntu-latest
