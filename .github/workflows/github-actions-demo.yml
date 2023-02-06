@@ -46,6 +46,8 @@ jobs:
     needs: shared-variables
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    steps:
+      - run: echo "We are running this in the ${{ inputs.environment }} environment"
   
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
