@@ -35,6 +35,11 @@ jobs:
           TAG_NAME: ${{ inputs.git_ref }}
         with:
           prerelease: false
+  deploy-app-two:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - run: echo "This is deploying to the ${{ inputs.environment }} environment. Shouldd only be here if in prod."
 # jobs:
 #   cancel-previous-runs:
 #     runs-on: ubuntu-latest
