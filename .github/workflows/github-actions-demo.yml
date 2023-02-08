@@ -28,13 +28,13 @@ jobs:
     steps:
       - name: Create Stage Release
         if: inputs.environment == 'staging' && success()
-        uses: ./.github/workflows/cd-depoy.yml
+        uses: ./.github/workflows/cd-deploy.yml
         with:
           environment: ${{ inputs.environment }}
           TAG_NAME: ${{ inputs.git_ref }}
       - name: Create Production Release
         if: inputs.environment == 'prod' && success()
-        uses: ./.github/workflows/cd-depoy.yml
+        uses: ./.github/workflows/cd-deploy.yml
         with:
           environment: ${{ inputs.environment }}
           git_ref: ${{ inputs.git_ref }}
