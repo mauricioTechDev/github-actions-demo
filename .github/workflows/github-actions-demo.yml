@@ -37,32 +37,5 @@ jobs:
           prerelease: false
   deploy-app-two:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
     steps:
-      - run: echo "This is deploying to the ${{ inputs.environment }} environment. Shouldd only be here if in prod."
-# jobs:
-#   cancel-previous-runs:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Cancel Previous Runs
-#         uses: styfle/cancel-workflow-action@0.11.0
-#         with:
-#           access_token: ${{ github.token }}
-        
-#   start-deployment:
-#     runs-on: ubuntu-latest
-#     needs: cancel-previous-runs
-#     steps:
-#       - name: Create Stage Release
-#         if: inputs.environment == 'staging' && success()
-#         uses: ./.github/workflows/cd-deploy.yml
-#         with:
-#           environment: ${{ inputs.environment }}
-#           TAG_NAME: ${{ inputs.git_ref }}
-#       - name: Create Production Release
-#         if: inputs.environment == 'prod' && success()
-#         uses: ./.github/workflows/cd-deploy.yml
-#         with:
-#           environment: ${{ inputs.environment }}
-#           git_ref: ${{ inputs.git_ref }}
-          
+      - run: echo "This is deploying to the ${{ inputs.environment }} environment. Can be in stg or prod."
