@@ -13,29 +13,46 @@ on:
         required: true
         type: string
         
+env:
+  ENVIRONMENT: ${{ inputs.environment }}
+ 
 jobs:
-  cancel-previous-runs:
+  deploy-app:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-        
-  start-deployment:
-    runs-on: ubuntu-latest
-    needs: cancel-previous-runs
-    steps:
-      - name: Create Stage Release
-        if: inputs.environment == 'staging' && success()
-        uses: ./.github/workflows/cd-deploy.yml
-        with:
-          environment: ${{ inputs.environment }}
-          TAG_NAME: ${{ inputs.git_ref }}
-      - name: Create Production Release
+      - run: echo "This is deploying to the ${{ inputs.environment }} environment"
+      - name: Create Prod Release
         if: inputs.environment == 'prod' && success()
-        uses: ./.github/workflows/cd-deploy.yml
+        uses: tubone24/update_release@v1.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ inputs.git_ref }}
         with:
-          environment: ${{ inputs.environment }}
-          git_ref: ${{ inputs.git_ref }}
+          prerelease: false
+        
+# jobs:
+#   cancel-previous-runs:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Cancel Previous Runs
+#         uses: styfle/cancel-workflow-action@0.11.0
+#         with:
+#           access_token: ${{ github.token }}
+        
+#   start-deployment:
+#     runs-on: ubuntu-latest
+#     needs: cancel-previous-runs
+#     steps:
+#       - name: Create Stage Release
+#         if: inputs.environment == 'staging' && success()
+#         uses: ./.github/workflows/cd-deploy.yml
+#         with:
+#           environment: ${{ inputs.environment }}
+#           TAG_NAME: ${{ inputs.git_ref }}
+#       - name: Create Production Release
+#         if: inputs.environment == 'prod' && success()
+#         uses: ./.github/workflows/cd-deploy.yml
+#         with:
+#           environment: ${{ inputs.environment }}
+#           git_ref: ${{ inputs.git_ref }}
           
