@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     environment: stg
     steps:
-      - run: echo "This is deploying to the stf environment with the github ref of ${{ inputs.git_ref }}"
+      - run: echo "This is deploying to the stf environment with the github tag ${{ github.ref }}"
