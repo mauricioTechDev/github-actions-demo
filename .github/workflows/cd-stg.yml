@@ -9,6 +9,6 @@ env:
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
-    environment: "${{ env.ENVIRONMENT }}"
+    environment: $ENVIRONMENT
     steps:
-      - run: echo "This is deploying to the ${{ env.ENVIRONMENT }} environment with the github tag ${{ github.ref }}"
+      - run: echo "This is deploying to the $ENVIRONMENT environment with the github tag ${{ github.ref }}"
