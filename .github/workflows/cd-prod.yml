@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     steps:
-      - run: echo "This job only run in the prod env environment and will trigger the prod deploy."
+      - run: echo "This job only run in the prod env environment and will trigger the prod deploy. tag ${{ github.ref }}"
       - name: Create Prod Release
         uses: tubone24/update_release@v1.0
         env:
