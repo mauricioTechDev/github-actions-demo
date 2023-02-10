@@ -1,41 +1,23 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: stg deploy
 on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
-      git_ref:
-        required: true
-        type: string
-      AWS_REGION:
-        required: true
-        type: string
-        
-env:
-  ENVIRONMENT: ${{ inputs.environment }}
- 
+  release:
+    types: [prereleased]
+    
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-      - run: echo "This is deploying to the ${{ inputs.environment }} environment with the github ref of ${{ inputs.git_ref }}"
-  test-job:
+      - run: echo "This is deploying to the stf environment with the github ref of ${{ inputs.git_ref }}"
+  prep-prod-release:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: prod
     steps:
-      - run: echo "This job only run in the prod env environment"
+      - run: echo "This job only run in the prod env environment and will trigger the prod deploy."
       - name: Create Prod Release
-        if: inputs.environment == 'prod' && success()
         uses: tubone24/update_release@v1.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ inputs.git_ref }}
+          TAG_NAME: '${{ github.ref }}'
         with:
           prerelease: false
-  deploy-app-two:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "This is deploying to the ${{ inputs.environment }} environment. Can be in stg or prod."
