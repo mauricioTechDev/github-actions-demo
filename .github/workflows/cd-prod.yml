@@ -1,7 +1,9 @@
 name: Initiate release to prod
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["stg deploy"]
+    types:
+      - completed
 jobs:
   deploy-app-prod:
     runs-on: ubuntu-latest
