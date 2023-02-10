@@ -4,6 +4,9 @@ on:
     workflows: ["stg deploy"]
     types:
       - completed
+  push:
+    tags:
+      - 'v*'
 jobs:
   deploy-app-prod:
     runs-on: ubuntu-latest
