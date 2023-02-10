@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: stg
     steps:
       - run: echo "This is deploying to the stf environment with the github ref of ${{ inputs.git_ref }}"
   prep-prod-release:
@@ -18,6 +18,6 @@ jobs:
         uses: tubone24/update_release@v1.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          TAG_NAME: '${{ github.ref }}'
+          TAG_NAME: ${{ github.ref }}
         with:
           prerelease: false
