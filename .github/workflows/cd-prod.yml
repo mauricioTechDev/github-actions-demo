@@ -1,9 +1,5 @@
 name: Initiate release to prod
 on:
-  workflow_run:
-    workflows: ["stg deploy"]
-    types:
-      - completed
   push:
     tags:
       - 'v*'
