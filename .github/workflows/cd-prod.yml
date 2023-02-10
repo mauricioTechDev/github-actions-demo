@@ -1,0 +1,10 @@
+name: Initiate release to prod
+on:
+  release:
+    types: [published]
+jobs:
+  deploy-app-prod:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - run: echo "This is deploying to the prod environment"
