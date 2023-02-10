@@ -3,17 +3,20 @@ on:
   push:
     tags:
       - 'v*'
+      
+env:
+  ENVIRONMENT: prod
 jobs:
   deploy-app-prod:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: ${{ env.ENVIRONMENT}}
     steps:
-      - run: echo "This is deploying to the prod environment"
+      - run: echo "This is deploying to the ${{ env.ENVIRONMENT}} environment"
   prep-prod-release:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: ${{ env.ENVIRONMENT}}
     steps:
-      - run: echo "This job only run in the prod env environment and will trigger the prod deploy. tag ${{ github.ref }}"
+      - run: echo "This job only run in the prod ${{ env.ENVIRONMENT}} environment and will trigger the ${{ env.ENVIRONMENT}} deploy. tag ${{ github.ref }}"
       - name: Create Prod Release
         uses: tubone24/update_release@v1.0
         env:
