@@ -9,14 +9,14 @@ env:
 jobs:
   deploy-app-prod:
     runs-on: ubuntu-latest
-    environment: "${{ env.ENVIRONMENT}}"
+    environment: $ENVIRONMENT
     steps:
       - run: echo "This is deploying to the ${{ env.ENVIRONMENT}} environment"
   prep-prod-release:
     runs-on: ubuntu-latest
     environment: ${{ env.ENVIRONMENT}}
     steps:
-      - run: echo "This job only run in the prod ${{ env.ENVIRONMENT}} environment and will trigger the ${{ env.ENVIRONMENT}} deploy. tag ${{ github.ref }}"
+      - run: echo "This job only run in the prod $ENVIRONMENT environment and will trigger the $ENVIRONMENT deploy. tag ${{ github.ref }}"
       - name: Create Prod Release
         uses: tubone24/update_release@v1.0
         env:
