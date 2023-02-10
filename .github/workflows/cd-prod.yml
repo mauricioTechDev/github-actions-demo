@@ -9,7 +9,7 @@ env:
 jobs:
   deploy-app-prod:
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT}}
+    environment: "${{ env.ENVIRONMENT}}"
     steps:
       - run: echo "This is deploying to the ${{ env.ENVIRONMENT}} environment"
   prep-prod-release:
